@@ -13,6 +13,9 @@ const AreaSelector = ({
 
   useMapEvents({
     mousedown(e) {
+       if (e.originalEvent) {
+      e.originalEvent.preventDefault();
+    }
       setStart(e.latlng);
       setEnd(null);
     },
@@ -32,6 +35,9 @@ const AreaSelector = ({
       setStart(null);
       setEnd(null);
     },
+    contextmenu(e) {
+    e.originalEvent.preventDefault();
+  }
   });
   
   return start && end ? (
