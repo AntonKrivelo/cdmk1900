@@ -5,9 +5,9 @@ import {
   Rectangle,
 } from 'react-leaflet';
 import { LatLngBoundsExpression } from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 import AreaSelector from './Components/AreaSelector';
-
+import './App.css';
+import 'leaflet/dist/leaflet.css';
 
 
 const Modal = ({ bounds, onClose }: {
@@ -15,22 +15,7 @@ const Modal = ({ bounds, onClose }: {
   onClose: () => void }) => {
     const [[lat1, lng1], [lat2, lng2]] = bounds as [[number, number], [number, number]];
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: '30%',
-        left: '50%',
-        transform: 'translate(-50%, -30%)',
-        backgroundColor: 'white',
-        border: '1px solid #ccc',
-        padding: '20px',
-        zIndex: 1000,
-        borderRadius: '8px',
-        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-        width: '300px',
-        textAlign: 'center',
-      }}
-    >
+    <div className='modal'>
       <h3>Выделенная область</h3>
       <p>
         <strong>Координата 1:</strong><br />
@@ -47,7 +32,7 @@ const Modal = ({ bounds, onClose }: {
   );
 };
 
-const MyMap: React.FC = () => {
+const App: React.FC = () => {
   const position: [number, number] = [53.975488, 27.411509]; 
   const [selectedBounds, setSelectedBounds] = useState<LatLngBoundsExpression | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -84,4 +69,4 @@ const MyMap: React.FC = () => {
   );
 };
 
-export default MyMap;
+export default App;
