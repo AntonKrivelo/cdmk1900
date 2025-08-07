@@ -48,7 +48,7 @@ const Modal = ({ bounds, onClose }: {
 };
 
 const MyMap: React.FC = () => {
-  const position: [number, number] = [55.751244, 37.618423]; // Москва
+  const position: [number, number] = [53.975488, 27.411509]; 
   const [selectedBounds, setSelectedBounds] = useState<LatLngBoundsExpression | null>(null);
   const [showModal, setShowModal] = useState(false);
 
