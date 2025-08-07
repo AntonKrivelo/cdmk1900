@@ -22,7 +22,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, corners }) => {
     <div className="modal-overlay">
       <div className="modal">
         <h2>Выделенная область</h2>
-        <ul>
+        <ul className="list">
           <li className="list-item"><strong>Верхний левый</strong>: {corners.topLeft.join(', ')}</li>
           <li className="list-item"><strong>Нижний левый</strong>: {corners.bottomLeft.join(', ')}</li>
           <li className="list-item"><strong>Нижний правый</strong>: {corners.bottomRight.join(', ')}</li>
