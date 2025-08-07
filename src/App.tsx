@@ -12,7 +12,7 @@ import Modal from './Components/Modal/Modal';
 
 
 const App: React.FC = () => {
-  const position: [number, number] = [53.975488, 27.411509]; 
+  const position: [number, number] = [53.922579, 27.517172]; 
   const [selectedBounds, setSelectedBounds] = useState<LatLngBoundsExpression | null>(null);
   const [showModal, setShowModal] = useState(false);
 

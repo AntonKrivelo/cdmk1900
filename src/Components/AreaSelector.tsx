@@ -2,6 +2,7 @@ import {useState, useRef} from 'react';
 import { Rectangle, useMapEvents } from 'react-leaflet';
 import { LatLngBoundsExpression, LatLng, LeafletMouseEvent  } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+
 const AreaSelector = ({
   onSelect,
 }: {
@@ -10,25 +11,23 @@ const AreaSelector = ({
   const [start, setStart] = useState<LatLng | null>(null);
   const [end, setEnd] = useState<LatLng | null>(null);
   const dragging = useRef(false);
-  const map = useMapEvents({
+
+  useMapEvents({
     mousedown(e: LeafletMouseEvent) {
+      if (e.originalEvent.button !== 2) return; 
       dragging.current = false;
       setStart(e.latlng);
       setEnd(null);
+      e.originalEvent.preventDefault(); 
     },
     mousemove(e: LeafletMouseEvent) {
       if (start) {
-        // Проверим, насколько пользователь сместил мышь
-        const dx = Math.abs(e.containerPoint.x - map.latLngToContainerPoint(start).x);
-        const dy = Math.abs(e.containerPoint.y - map.latLngToContainerPoint(start).y);
-
-        if (dx > 5 || dy > 5) {
-          dragging.current = true;
-          setEnd(e.latlng);
-        }
+        dragging.current = true;
+        setEnd(e.latlng);
       }
     },
     mouseup(e: LeafletMouseEvent) {
+      if (e.originalEvent.button !== 2) return; 
       if (start && end && dragging.current) {
         const bounds: LatLngBoundsExpression = [
           [start.lat, start.lng],
@@ -39,9 +38,10 @@ const AreaSelector = ({
       setStart(null);
       setEnd(null);
       dragging.current = false;
+      e.originalEvent.preventDefault();
     },
     contextmenu(e) {
-      e.originalEvent.preventDefault(); // отключаем меню браузера
+      e.originalEvent.preventDefault(); 
     },
   });
 
@@ -55,4 +55,5 @@ const AreaSelector = ({
     />
   ) : null;
 };
+
 export default AreaSelector;
