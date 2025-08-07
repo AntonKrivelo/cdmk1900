@@ -5,7 +5,6 @@ import 'leaflet/dist/leaflet.css';
 
 type LatLngTuple = [number, number];
 
-
 type Corners = {
   topLeft: LatLngTuple;
   topRight: LatLngTuple;

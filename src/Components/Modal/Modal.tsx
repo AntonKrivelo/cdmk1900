@@ -1,5 +1,3 @@
-
-
 type LatLngTuple = [number, number];
 
 type Corners = {
