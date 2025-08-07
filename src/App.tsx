@@ -4,21 +4,30 @@ import {
   TileLayer,
   Rectangle,
 } from 'react-leaflet';
-import { LatLngBoundsExpression } from 'leaflet';
 import AreaSelector from './Components/AreaSelector';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
 import Modal from './Components/Modal/Modal';
 
+type LatLngTuple = [number, number];
+
+type Corners = {
+  topLeft: LatLngTuple;
+  topRight: LatLngTuple;
+  bottomRight: LatLngTuple;
+  bottomLeft: LatLngTuple;
+};
 
 const App: React.FC = () => {
-  const position: [number, number] = [53.922579, 27.517172]; 
-  const [selectedBounds, setSelectedBounds] = useState<LatLngBoundsExpression | null>(null);
+  const position: LatLngTuple  = [53.922579, 27.517172]
+  const [area, setArea] = useState<Corners | null>(null);
+
   const [showModal, setShowModal] = useState(false);
 
-  const handleSelect = (bounds: LatLngBoundsExpression) => {
-    setSelectedBounds(bounds);
+  const handleSelect = (corners: Corners) => {
+    setArea(corners);
     setShowModal(true);
+    
   };
 
   return (
@@ -33,15 +42,15 @@ const App: React.FC = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
         />
         <AreaSelector onSelect={handleSelect} />
-        {selectedBounds && (
-          <Rectangle bounds={selectedBounds} pathOptions={{ color: 'red' }} />
+        {area && (
+          <Rectangle  bounds={[area.bottomLeft, area.topRight]}
+          pathOptions={{ color: 'red' }} />
         )}
       </MapContainer>
 
-      {showModal && selectedBounds && (
+      {showModal && area && (
         <Modal
-          bounds={selectedBounds}
-          onClose={() => setShowModal(false)}
+          isOpen={true} onClose={() => setShowModal(false)} corners={area}
         />
       )}
     </>
